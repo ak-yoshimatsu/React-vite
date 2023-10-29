@@ -1,19 +1,27 @@
-import { Link } from "react-router-dom";
-
-const linkStyle = {
-  color: 'Red',
-  fontWeight: 'bold',
-}
+import { Link, useSearchParams } from "react-router-dom";
 
 const Index = () => {
-  const isbn = '000-0000-0000'
+  // クエリパラメータ
+  const [params, setParams] = useSearchParams({ isbn: '9889-3239-8232' })
+
+  console.log(params.get('isbn'));
 
   return (
     <div>
       <h1>Books</h1>
-      <p>
-        <Link to={isbn} style={linkStyle}>Detail</Link>
-      </p>
+      <ul>
+        {
+          [...Array(5)].map((_, i) => {
+            const str = Math.random().toString(32).substring(2)
+
+            return (
+              <li key={str}>
+                <Link to={str}>{`${i + 1}: ${str}`}</Link>
+              </li>
+            )
+          })
+        }
+      </ul>
     </div>
   );
 };

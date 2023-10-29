@@ -1,6 +1,11 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 
 const Home = () => {
+  const [count, setCount] = useOutletContext()
+
+  useEffect(() => setCount(count => count + 1), [setCount])
+
   return (
     <div>
       <h1>Home</h1>

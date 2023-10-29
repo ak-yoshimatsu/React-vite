@@ -6,6 +6,7 @@ import AppNavi from "./AppNavi";
 import Index from "../pages/books/Index";
 import Detail from "../pages/books/Detail";
 import NotFound from "../pages/errors/NotFound";
+import InvalidParams from "../pages/errors/InvalidParams";
 
 const routesElements = createRoutesFromElements(
   <Route path="/" element={<AppNavi />}>
@@ -15,7 +16,11 @@ const routesElements = createRoutesFromElements(
     {/* Books */}
     <Route path="/books">
       <Route index element={<Index />}></Route>
-      <Route path=":isbn" element={<Detail />}></Route>
+      <Route
+        path=":isbn"
+        element={<Detail />}
+        errorElement={<InvalidParams/>}
+      ></Route>
     </Route>
     {/* Not Found */}
     <Route path="*" element={<NotFound />}></Route>
