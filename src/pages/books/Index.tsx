@@ -22,6 +22,9 @@ const Index = () => {
           })
         }
       </ul>
+      <p>
+        <Link to='form'>フォーム</Link>
+      </p>
     </div>
   );
 };

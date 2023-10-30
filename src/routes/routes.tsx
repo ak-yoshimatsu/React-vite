@@ -1,4 +1,4 @@
-import { Route, createBrowserRouter, createRoutesFromElements, json } from "react-router-dom";
+import { ActionFunction, Route, createBrowserRouter, createRoutesFromElements, json, redirect } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
@@ -8,6 +8,33 @@ import Detail from "../pages/books/Detail";
 import NotFound from "../pages/errors/NotFound";
 import InvalidParams from "../pages/errors/InvalidParams";
 import Weathers from "../pages/weathers/Index";
+import FormAction from "../pages/forms/FormAction";
+import yup from "../pages/forms/yup.jp";
+import { date, number, string } from "yup";
+
+const bookAtion: ActionFunction = async ({ request }) => {
+  const form = await request.formData();
+  const bookSchema = yup.object({
+    title: string().label('書名').required().max(100),
+    price: number().label('価格').integer().positive(),
+    published: date().label('刊行日').required().max(new Date(2100, 0, 1))
+  })
+  let info
+
+  try {
+    info = await bookSchema.validate({
+      title: form.get('title'),
+      price: form.get('price') || 0,
+      published: new Date(form.get('published') as any),
+    }, {
+      abortEarly: false
+    })
+    console.log(info);
+    return redirect('/')
+  } catch (e: any) {
+    return e.errors
+  }
+}
 
 const routesElements = createRoutesFromElements(
   <Route path="/" element={<AppNavi />}>
@@ -25,6 +52,8 @@ const routesElements = createRoutesFromElements(
         element={<Detail />}
         errorElement={<InvalidParams/>}
       />
+      {/* action */}
+      <Route path="form" element={<FormAction />} action={bookAtion} />
     </Route>
 
     {/* Open-Meteo 天気予報API */}
