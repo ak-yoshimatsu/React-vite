@@ -17,6 +17,7 @@ const AppNavi = () => {
         <li><NavLink to="/" style={isCurrent}>Home</NavLink></li>
         <li><NavLink to="/about" style={isCurrent}>About</NavLink></li>
         <li><NavLink to="/contact" style={isCurrent}>Contact</NavLink></li>
+        <li><NavLink to="/form" style={isCurrent}>Form</NavLink></li>
         <li><NavLink to="/weathers/10" state={10}>Weather</NavLink></li>
       </ul>
       <hr />

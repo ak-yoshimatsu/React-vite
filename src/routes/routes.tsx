@@ -11,6 +11,7 @@ import Weathers from "../pages/weathers/Index";
 import FormAction from "../pages/forms/FormAction";
 import yup from "../pages/forms/yup.jp";
 import { date, number, string } from "yup";
+import StateForm from "../pages/forms/StateForm";
 
 const bookAtion: ActionFunction = async ({ request }) => {
   const form = await request.formData();
@@ -43,6 +44,7 @@ const routesElements = createRoutesFromElements(
     <Route index element={<Home />} />
     <Route path="about" element={<About />} />
     <Route path="contact" element={<Contact />} />
+    <Route path="form" element={<StateForm />} />
 
     {/* Books */}
     <Route path="/books">
